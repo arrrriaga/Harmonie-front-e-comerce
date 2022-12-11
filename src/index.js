@@ -18,8 +18,6 @@ root.render(
           options={{
             "client-id":
               "AZc7yPXHg2IevIKYWE87PZ40fLhlf-0lFkUNpq7vK4BcSgI-WtfMaBhrMeSsKNtn3HbPtzeOQH0YiLMR",
-            components: "buttons",
-            currency: "undefined",
           }}
         >
           <App />

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
-const PayPalButtons = ({ currency, amount }) => {
+const PaypalButtons = ({ currency, amount }) => {
   const style = { layout: "vertical" };
   // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
   // This is the main reason to wrap the PayPalButtons in a new component
@@ -15,6 +15,7 @@ const PayPalButtons = ({ currency, amount }) => {
         currency: currency,
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
 
   return (
@@ -43,10 +44,10 @@ const PayPalButtons = ({ currency, amount }) => {
               return orderId;
             });
         }}
-        onApprove={function(data, actions) {
+        onApprove={function (data, actions) {
           //Petición para guardar los datos de la compra y limpiar el carrito
           console.log("data: ", data);
-          return actions.order.capture().then(function() {
+          return actions.order.capture().then(function () {
             // Your code here after capture the order
           });
         }}
@@ -55,4 +56,4 @@ const PayPalButtons = ({ currency, amount }) => {
   );
 };
 
-export default PayPalButtons;
+export default PaypalButtons;
