@@ -1,6 +1,9 @@
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
+import { useContext } from "react";
+import { PeliculaContext } from "../context/PeliculaContext";
 
 const ProductList = ({ peliculas, total }) => {
+  const { eliminarDeCarrito } = useContext(PeliculaContext);
   return (
     <Table striped bordered hover size="sm">
       <thead>
@@ -8,6 +11,7 @@ const ProductList = ({ peliculas, total }) => {
           <th>#</th>
           <th>Película</th>
           <th>Precio</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +20,11 @@ const ProductList = ({ peliculas, total }) => {
             <td>{index + 1}</td>
             <td>{pelicula.nombre}</td>
             <td>${pelicula.price.toFixed(2)}</td>
+            <td>
+              <Button variant="danger" onClick={() => eliminarDeCarrito(index)}>
+                Eliminar
+              </Button>
+            </td>
           </tr>
         ))}
         <tr>

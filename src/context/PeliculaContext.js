@@ -15,9 +15,8 @@ const PeliculaProvider = ({ children }) => {
   //! 5.- Manejar el estado
   const guardarPeliculas = (newPeliculas) => setPeliculas(newPeliculas);
 
-  const agregarACarrito = (pelicula) => {
-    return setCarrito([...carrito, pelicula]);
-  };
+  const agregarACarrito = (pelicula) => setCarrito([...carrito, pelicula]);
+
   const eliminarDeCarrito = (index) => {
     const newCarrito = [...carrito];
     newCarrito.splice(index, 1);

@@ -16,8 +16,7 @@ root.render(
       <PeliculaProvider>
         <PayPalScriptProvider
           options={{
-            "client-id":
-              "AZc7yPXHg2IevIKYWE87PZ40fLhlf-0lFkUNpq7vK4BcSgI-WtfMaBhrMeSsKNtn3HbPtzeOQH0YiLMR",
+            "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
           }}
         >
           <App />

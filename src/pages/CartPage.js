@@ -12,13 +12,15 @@ const CartPage = () => {
     0
   );
 
-  return (
+  return !carrito.length ? (
+    <h1>No hay películas, agrega una</h1>
+  ) : (
     <Row>
       <Col>
         <ProductList peliculas={carrito} total={total} />
       </Col>
       <Col>
-        <PaypalButtons currency={"MXN"} amount={total} />
+        <PaypalButtons peliculas={carrito} currency={"MXN"} amount={total} />
       </Col>
     </Row>
   );
