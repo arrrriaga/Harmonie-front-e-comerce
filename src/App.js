@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useContext } from "react";
+import PublicRoutesComponent from "./routes/PublicRoutesComponent";
+import NavComponent from "./components/Nav";
+import { Container } from "react-bootstrap";
+import { UserContext } from "./context/UserContext";
 
 function App() {
+  const { guardarToken } = useContext(UserContext);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      guardarToken(token);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavComponent />
+      <Container>
+        <PublicRoutesComponent />
+      </Container>
+    </>
   );
 }
 
