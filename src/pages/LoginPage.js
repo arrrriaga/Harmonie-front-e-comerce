@@ -9,20 +9,22 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const { guardarToken } = useContext(UserContext);
+  const { guardarInfo } = useContext(UserContext);
 
   const onSubmited = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const { detalles: token, error } = await login(data);
+    const {
+      detalles: { token, tipo },
+      error,
+    } = await login(data);
     if (error) {
       //alert(error);
-      setErrorMessage("Verifica tus credenciales: " + error);
+      setErrorMessage(error);
     } else {
-      guardarToken(token);
-      setErrorMessage(null);
+      guardarInfo(token, tipo);
       event.target.reset();
     }
     setIsLoading(false);
@@ -38,6 +40,7 @@ const LoginPage = () => {
           placeholder="Ingresa tu correo"
           name="correo"
         />
+        <label style={{ color: "red" }}>{errorMessage}</label>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="password">
@@ -47,7 +50,6 @@ const LoginPage = () => {
           placeholder="Ingresa tu contraseña"
           name="password"
         />
-        <label style={{ color: "red" }}>{errorMessage}</label>
       </Form.Group>
 
       <Button variant="primary" type="submit">

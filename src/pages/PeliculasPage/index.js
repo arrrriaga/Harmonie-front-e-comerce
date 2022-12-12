@@ -8,8 +8,8 @@ const PeliculasPage = ({ columns }) => {
     useContext(PeliculaContext);
 
   const getPeliculas = async () => {
-    const { data } = await verPeliculas();
-    guardarPeliculas(data);
+    const { detalles } = await verPeliculas();
+    guardarPeliculas(detalles);
   };
 
   useEffect(() => {
@@ -34,15 +34,15 @@ const PeliculasPage = ({ columns }) => {
               backgroundPositionX: '50%',
             }}
           />  */}
+
           <Card.Img className="imgCard" variant="top" src={pelicula.img} />
           <Card.Body>
             <Card.Title>{pelicula.nombre}</Card.Title>
             <Card.Text>
               Some quick example text to build on the card title and make up the
-              bulk of the card's contents.
+              bulk of the card's content.
             </Card.Text>
           </Card.Body>
-
           <Card.Footer>
             <h5>${pelicula.price}</h5>
             <Button
@@ -52,7 +52,6 @@ const PeliculasPage = ({ columns }) => {
                   price: pelicula.price,
                   _id: pelicula._id,
                 });
-                console.log(pelicula.nombre, pelicula.price, pelicula._id);
               }}
             >
               Add to cart

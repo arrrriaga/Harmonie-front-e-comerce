@@ -16,7 +16,6 @@ const PeliculaProvider = ({ children }) => {
   const guardarPeliculas = (newPeliculas) => setPeliculas(newPeliculas);
 
   const agregarACarrito = (pelicula) => setCarrito([...carrito, pelicula]);
-
   const eliminarDeCarrito = (index) => {
     const newCarrito = [...carrito];
     newCarrito.splice(index, 1);

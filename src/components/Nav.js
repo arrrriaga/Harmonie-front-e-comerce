@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext } from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -7,32 +6,39 @@ import { UserContext } from "../context/UserContext";
 
 const NavComponent = () => {
   const {
-    user: { token },
+    user: { token, tipo },
   } = useContext(UserContext);
 
   const { carrito } = useContext(PeliculaContext);
-  const publicRoutes = [
-    <Nav.Link as={Link} to="/login" key={0}>
-      Login
-    </Nav.Link>,
-    <Nav.Link as={Link} to="/registro" key={1}>
-      Registro
-    </Nav.Link>,
+
+  const clientRoutes = [
+    { path: "/", titulo: "Home" },
+    { path: "/about", titulo: "Acerca de..." },
+    {
+      path: "/cart",
+      titulo: `Carrito ${!carrito.length ? "" : carrito.length}`,
+    },
   ];
 
-  const privRoutes = [
-    <Nav.Link as={Link} to="/profile" key={0}>
-      Mi perfil
-    </Nav.Link>,
-    <Nav.Link as={Link} to="/about" key={1}>
-      About
-    </Nav.Link>,
-    <Nav.Link as={Link} to="/cart" key={2}>
-      Carrito {!carrito.length ? "" : `(${carrito.length})`}
-    </Nav.Link>,
-    <Nav.Link as={Link} to="/logout" key={3}>
-      Cerrar sesión
-    </Nav.Link>,
+  const adminRoutes = [
+    { path: "/", titulo: "Dashboard" },
+    { path: "/nueva-pelicula", titulo: "Nueva Pelicula" },
+    { path: "/mis-peliculas", titulo: "Mis Películas" },
+    { path: "/usuarios", titulo: "Usuarios" },
+  ];
+
+  const loginRoutes = tipo === "cliente" ? clientRoutes : adminRoutes;
+
+  const privateRoutes = [
+    ...loginRoutes,
+    { path: "/profile", titulo: "Mi perfil" },
+    { path: "/logout", titulo: "Cerrar sesión" },
+  ];
+
+  const publicRoutes = [
+    { path: "/", titulo: "Inicio" },
+    { path: "/login", titulo: "Iniciar sesión" },
+    { path: "/registro", titulo: "Registrarse" },
   ];
 
   return (
@@ -42,10 +48,11 @@ const NavComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
-            {token ? privRoutes : publicRoutes}
+            {(token ? privateRoutes : publicRoutes).map((route, index) => (
+              <Nav.Link as={Link} to={route.path} key={index}>
+                {route.titulo}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

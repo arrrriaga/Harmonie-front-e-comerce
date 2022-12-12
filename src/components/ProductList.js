@@ -1,5 +1,5 @@
-import { Button, Table } from "react-bootstrap";
 import { useContext } from "react";
+import { Button, Table } from "react-bootstrap";
 import { PeliculaContext } from "../context/PeliculaContext";
 
 const ProductList = ({ peliculas, total }) => {
@@ -9,7 +9,7 @@ const ProductList = ({ peliculas, total }) => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Película</th>
+          <th>Pelicula</th>
           <th>Precio</th>
           <th>Acciones</th>
         </tr>
@@ -29,9 +29,7 @@ const ProductList = ({ peliculas, total }) => {
         ))}
         <tr>
           <th colSpan={2}>Total</th>
-          <td>
-            <b>${total.toFixed(2)}</b>
-          </td>
+          <td>${total.toFixed(2)}</td>
         </tr>
       </tbody>
     </Table>

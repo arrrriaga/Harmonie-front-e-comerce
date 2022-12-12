@@ -5,8 +5,6 @@ import { guardarVenta } from "../services";
 
 const PaypalButtons = ({ currency, amount, peliculas }) => {
   const style = { layout: "vertical" };
-  // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
-  // This is the main reason to wrap the PayPalButtons in a new component
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const { limpiarCarrito } = useContext(PeliculaContext);
 
@@ -15,7 +13,7 @@ const PaypalButtons = ({ currency, amount, peliculas }) => {
       total: amount,
       productos: peliculas.map((pelicula) => pelicula._id),
     };
-    console.log("InfoPedido button: ", infoPedido);
+    console.log(infoPedido);
     await guardarVenta(infoPedido);
     limpiarCarrito();
   };
@@ -52,17 +50,15 @@ const PaypalButtons = ({ currency, amount, peliculas }) => {
               ],
             })
             .then((orderId) => {
-              console.log("OrderId: ", orderId);
-              // Your code here after create the order
+              console.log("orderId:", orderId);
               return orderId;
             });
         }}
         onApprove={function (data, actions) {
-          //Petición para guardar los datos de la compra y limpiar el carrito
-
+          // Petición para guardar los datos de la compra y limpiar el carrito
+          // Stripe
           return actions.order.capture().then(function () {
             ventaHandler();
-            // Your code here after capture the order
           });
         }}
       />
